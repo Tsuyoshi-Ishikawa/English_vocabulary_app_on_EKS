@@ -1,4 +1,12 @@
 version: '3'
+#volume単体で定義するとそれだけで保存することになるので、永続性が出る
+#そしてこれを複数のコンテナで共有することができる
+#webサーバーとアプリサーバーが、unixドメインのやりとりをするために
+#共通のファイルを持っていなければいけないのでこのような形になった?
+#参考：https://qiita.com/kotarella1110/items/634f6fafeb33ae0f51dc
+#https://qiita.com/kuni-nakaji/items/d11219e4ad7c74ece748
+volumes:
+  php-fpm-socket:
 services:
   web:
       build:
@@ -8,7 +16,11 @@ services:
           - "8080:80"
       depends_on:
           - php
+      volumes:
+        - php-fpm-socket:/var/run/php-fpm
   php:
       build:
         context: .
         dockerfile: ./containers/php/Dockerfile
+      volumes:
+        - php-fpm-socket:/var/run/php-fpm
