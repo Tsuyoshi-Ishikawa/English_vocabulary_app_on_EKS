@@ -24,3 +24,13 @@ services:
         dockerfile: ./containers/php/Dockerfile
       volumes:
         - php-fpm-socket:/var/run/php-fpm
+  nuxt:
+      #Cannot find module '../package.json'と表示されればnode_moduleを一旦削除
+      #https://qiita.com/Safire/items/2fe4587769e763782dcd
+      build:
+        context: .
+        dockerfile: ./containers/nuxt/Dockerfile
+      tty: true
+      command: sh -c "npm install && npm run dev"
+      ports:
+        - 80:80
