@@ -5,8 +5,20 @@ version: '3'
 #共通のファイルを持っていなければいけないのでこのような形になった?
 #参考：https://qiita.com/kotarella1110/items/634f6fafeb33ae0f51dc
 #https://qiita.com/kuni-nakaji/items/d11219e4ad7c74ece748
+
+#volumeのメリット
+#volumeに書かれた内容はコンテナが消えても残してくれていて
+#新しいコンテナが立ち上がった時に、前消された時の内容を反映してくれる
+#つまりnginxとphp-fpmの/var/run/php-fpmはimageに保存され
+#dbの/var/lib/mysqlもimagesに保存されるため、コンテナが消えてもデータはある状態になる。
+#保存場所はimageではなく、そのpcのどこか
+#deviceと指定して保存する場所を指定できる
+#https://qiita.com/reflet/items/5c0a488494c7d6904084
+#またdocker volume inspectでlocalでのvolumeの保存場所がわかる
+#https://note.com/w0o0ps/n/n9bc1bcd9fa59
 volumes:
   php-fpm-socket:
+  db-store:
 services:
   web:
       build:
@@ -24,6 +36,13 @@ services:
         dockerfile: ./containers/php/Dockerfile
       volumes:
         - php-fpm-socket:/var/run/php-fpm
+      environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_NAME:-laravel_local}
+      - DB_USERNAME=${DB_USER:-phper}
+      - DB_PASSWORD=${DB_PASS:-secret}
   nuxt:
       #Cannot find module '../package.json'と表示されればnode_moduleを一旦削除
       #https://qiita.com/Safire/items/2fe4587769e763782dcd
@@ -34,3 +53,16 @@ services:
       command: sh -c "npm install && npm run dev"
       ports:
         - 80:80
+  db:
+    build:
+      context: .
+      dockerfile: ./containers/mysql/Dockerfile
+    ports:
+      - ${DB_PORT:-3306}:3306
+    volumes:
+      - db-store:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_NAME:-laravel_local}
+      - MYSQL_USER=${DB_USER:-phper}
+      - MYSQL_PASSWORD=${DB_PASS:-secret}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS:-secret}

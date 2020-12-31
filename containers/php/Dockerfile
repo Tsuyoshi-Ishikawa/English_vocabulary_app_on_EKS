@@ -9,7 +9,16 @@ COPY ./code/laravel /var/www/html
 COPY ./volume_conf/php-fmp/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 
 RUN apt-get update && \
+    #docker-php-ext-install intl pdo_mysql zip bcmathに必要
+    apt-get -y install libicu-dev libonig-dev libzip-dev unzip locales && \
     mkdir /var/run/php-fpm && \
+    #pdo_mysqlとはpdoでmysql専用のものということ?
+    #https://www.php.net/manual/ja/ref.pdo-mysql.php
+    #生のSQL文よりメリットがある、生のsql文だとdbの種類に応じてsqlを変更しないといけない
+    #pdoの場合はどんなdbでもうまいこと、sqlを実行してくれる
+    #pdoのような役割をデータベース抽象化レイヤ、dbドライバと呼ばれる?
+    #https://qiita.com/7968/items/6f089fec8dde676abb5b
+    docker-php-ext-install intl pdo_mysql zip bcmath && \
     cd /var/www/html && \
     php artisan config:clear && \
     chmod -R 777 storage bootstrap/cache
