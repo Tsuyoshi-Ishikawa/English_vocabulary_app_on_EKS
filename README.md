@@ -3,7 +3,14 @@ nuxtとlaravelとdbをdockerコンテナで作成したアプリ。
 dockerやnginxやphp-fpmも含めて自分で実装したので学んだことをコメントに追加している
 
 # 構成
+- container
+dockerfileの格納場所
 
+- volume_conf
+コンテナにvolumeする設定ファイル
+
+- code
+コンテナにvolumeする実装コード
 
 # 参考
 nginxやphp-fpmの構成の参考
