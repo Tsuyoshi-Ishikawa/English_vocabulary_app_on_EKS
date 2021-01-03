@@ -1,3 +1,6 @@
+//環境ごとにapiのurlを変更するため
+//docker-composeのnuxtの環境変数NODE_ENVで切り替えを行う
+const environment = process.env.NODE_ENV || 'development';
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -35,31 +38,10 @@ export default {
   ],
 
   //バックエンドのipを指定する(nginx(laradock_nginx)のportを指定)
+  // 本番環境EKSの時(後者)のhostは、バックエンドのserviceの名前にする、自動で名前解決してくれる
   axios: {
-    baseURL: 'http://0.0.0.0:23450/api',
+    baseURL: (environment === 'development') ? 'http://0.0.0.0:23450/api' : 'http://laravel_svc/api',
   },
-
-  // publicRuntimeConfig: {
-  //   axios: {
-  //     browserBaseURL: process.env.BROWSER_BASE_URL
-  //   }
-  // },
-
-  // privateRuntimeConfig: {
-  //   axios: {
-  //     baseURL: process.env.BASE_URL
-  //   }
-  // },
-
-  // axios: {
-  //   proxy: true // Can be also an object with default options
-  // },
-
-  // proxy: {
-  //   '/api/': 'http://0.0.0.0:23450/api'
-  // },
-
-
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

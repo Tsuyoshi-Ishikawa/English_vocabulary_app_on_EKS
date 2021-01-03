@@ -54,12 +54,14 @@ services:
         context: .
         dockerfile: ./containers/nuxt/Dockerfile
       tty: true
-      # command: npm run dev
+      command: npm run dev
       #npm run devは開発用であるので開発中は上記のコマンドはコメントインしておく
       #docker hubにpushをするimageを作成するときは上記command: sh -c "npm install && npm run dev"をコメントアウトする
       #またnuxtのdockerfileでCMD  npm run startをコメントインする
       #詳しくはnuxtのdockerfileに記述
-      
+      environment:
+      - NODE_ENV=development
+      #apiのurlを環境ごとに変えるために上の環境変数を作成、本番の場合はNODE_ENV=eksに変える
       ports:
         - 80:80
       networks:

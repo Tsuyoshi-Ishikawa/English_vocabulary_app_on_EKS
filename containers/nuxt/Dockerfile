@@ -20,7 +20,7 @@ ENV HOST 0.0.0.0
 EXPOSE 80
 
 #本番で動くためにstartを起動させないといけない、開発ではdev
-CMD  npm run start
+# CMD  npm run start
 #docker hubにpushをするimageを作成するときは上記をコメントインする
 #またdocker-compose.ymlのcommand: sh -c "npm install && npm run dev"はコメントアウトする
 

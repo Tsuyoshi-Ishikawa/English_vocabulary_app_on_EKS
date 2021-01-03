@@ -1,7 +1,7 @@
 export const actions = {
   async register({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/users/register', data);
+      const res = await this.$axios.$post('/users/register', data);
       if (res.error_message) {
         //commitでmutationを発動、第二引数にmutationで使う引数
         commit('setErrorMsg', res.error_message)
@@ -16,7 +16,7 @@ export const actions = {
   async login({ commit }, data) {
     try {
       console.log(data)
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/users/login', data);
+      const res = await this.$axios.$post('/users/login', data);
       if (res.error_message) {
         //commitでmutationを発動、第二引数にmutationで使う引数
         commit('setErrorMsg', res.error_message)
@@ -34,7 +34,7 @@ export const actions = {
   },
   async getHomeInfo({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/users/home', data);
+      const res = await this.$axios.$post('/users/home', data);
       commit('setWords', res.words)
     } catch (error) {
       commit('setErrorMsg', error.message)
@@ -42,7 +42,7 @@ export const actions = {
   },
   async getTestInfo({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/test', data);
+      const res = await this.$axios.$post('/words/test', data);
       console.log(res)
       if (res.error_message) {
         commit('setErrorMsg', res.error_message)
@@ -56,7 +56,7 @@ export const actions = {
   },
   async getIndexInfo({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/index', data);
+      const res = await this.$axios.$post('/words/index', data);
       console.log(res)
       commit('setOtherWords', res.words)
     } catch (error) {
@@ -74,7 +74,7 @@ export const actions = {
   },
   async createWord({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words', data);
+      const res = await this.$axios.$post('/words', data);
       this.$router.push('/users/home')
     } catch (error) {
       commit('setErrorMsg', error.message)
@@ -82,7 +82,7 @@ export const actions = {
   },
   async editWord({ commit }, data) {
     try {
-      const res = await this.$axios.$put('http://0.0.0.0:23450/api/words', data);
+      const res = await this.$axios.$put('/words', data);
       console.log(res)
       this.$router.push('/users/home')
     } catch (error) {
@@ -92,8 +92,8 @@ export const actions = {
   async deleteWord({ commit }, data) {
     try {
       //deleteだとなぜかlaravel側でdataが空になるので不採用
-      // const res = await this.$axios.$delete('http://0.0.0.0:23450/api/words', data);
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/delete', data);
+      // const res = await this.$axios.$delete('/words', data);
+      const res = await this.$axios.$post('/words/delete', data);
       if (res.error_message) {
         commit('setErrorMsg', res.error_message)
       } else {
@@ -105,7 +105,7 @@ export const actions = {
   },
   async favoWord({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/like', data);
+      const res = await this.$axios.$post('/words/like', data);
     } catch (error) {
       commit('setErrorMsg', error.message)
     }
