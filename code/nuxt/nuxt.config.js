@@ -38,9 +38,10 @@ export default {
   ],
 
   //バックエンドのipを指定する(nginx(laradock_nginx)のportを指定)
-  // 本番環境EKSの時(後者)のhostは、バックエンドのserviceの名前にする、自動で名前解決してくれる
+  // 本番環境EKSの時(後者)のhostは、EKSのIPアドレス(DNS)にする、自動で名前解決してくれる
+  //ingressを建てた後にこちらのimagesをhubにpush
   axios: {
-    baseURL: (environment === 'development') ? 'http://0.0.0.0:23450/api' : 'http://laravel_svc/api',
+    baseURL: (environment === 'development') ? 'http://0.0.0.0:23450/api' : 'http://DNS_change/api',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

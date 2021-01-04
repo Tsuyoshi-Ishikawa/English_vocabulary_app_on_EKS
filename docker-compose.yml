@@ -60,8 +60,9 @@ services:
       #またnuxtのdockerfileでCMD  npm run startをコメントインする
       #詳しくはnuxtのdockerfileに記述
       environment:
+        # - NODE_ENV=production
       - NODE_ENV=development
-      #apiのurlを環境ごとに変えるために上の環境変数を作成、本番の場合はNODE_ENV=eksに変える
+      #apiのurlを環境ごとに変えるために上の環境変数を作成、本番の場合はNODE_ENV=productionに変える
       ports:
         - 80:80
       networks:

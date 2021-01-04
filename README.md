@@ -18,7 +18,7 @@ docker hubにpushする際にはコードに修正を加えて作成したimage�
 詳しくはdocker-compose.ymlに記述
 
 - nuxt
-command,environment,CMD(dockerfile)
+command, environment, CMD(dockerfile), nuxt.config.js
 
 # 参考
 nginxやphp-fpmの構成の参考
