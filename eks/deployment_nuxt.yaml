@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nuxt
+  name: nuxt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nuxt
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: nuxt
+    spec:
+      containers:
+      - image: tsuyozo/nuxt_k8s_demo:latest
+        name: nuxt
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}

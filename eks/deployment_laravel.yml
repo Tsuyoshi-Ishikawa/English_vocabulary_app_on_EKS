@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: laravel
+  name: laravel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: laravel
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: laravel
+    spec:
+      containers:
+      - image: tsuyozo/web_server_for_laravel_k8s_demo
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+          # Volume名を指定
+        - name: my-pv
+          # Volumeをマウントするコンテナ内のファイルパスを指定
+          mountPath: /var/run/php-fpm
+      - image: tsuyozo/phpfpm_for_laravel_k8s_demo
+        name: php-fpm
+        resources: {}
+        volumeMounts:
+          # Volume名を指定
+        - name: my-pv
+          # Volumeをマウントするコンテナ内のファイルパスを指定
+          mountPath: /var/run/php-fpm
+      serviceAccountName: rds-service-account
+      volumes:
+      # 作成するVolume名を指定
+      - name: my-pv
+        # 永続ボリューム要求名を指定
+        persistentVolumeClaim:
+          claimName: pvc
+status: {}

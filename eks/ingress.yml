@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: nuxt
+  namespace: default
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: nuxt
+              servicePort: 80 
+            path: /
+          #backendのアプリをnodePortServiceで公開し、ingressに繋ぎ、nuxtがingressを通してバックエンドにつなぐ
+          #そのためnuxt.config.jsではbaseUrlをこのイングレスのIPにしなければいけない
+          - backend:
+              serviceName: laravel
+              servicePort: 23450
+            path: /api/
