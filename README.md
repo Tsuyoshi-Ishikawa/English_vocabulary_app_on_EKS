@@ -15,10 +15,13 @@ dockerfileの格納場所
 
 # EKSへのデプロイのためのdocker hubへのpush
 docker hubにpushする際にはコードに修正を加えて作成したimageをpushする。
-詳しくはdocker-compose.ymlに記述
+詳しくは以下を確認に記述
 
 - nuxt
-command, environment, CMD(dockerfile), nuxt.config.js
+docker-compose(command,environment), dockerfile(CMD), nuxt.config.js(baseUrl)
+
+- laravel
+.env(DBのhostをrdsのエンドポイントに変更), 
 
 # EKSでのnuxtとbackendの接続
 この繋ぎ方に関してはこちらの方の記事を参考にさせていただいた。
