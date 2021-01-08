@@ -18,6 +18,8 @@ eksにデプロイするためにどのような順番で作業すれば良い�
 
 # 参考資料
 ### docker・k8s
+- [米シリコンバレーDevOpsエンジニア監修！超Docker完全入門(2020)【優しい図解説とハンズオンLab付き】](https://www.udemy.com/course/linux-docker-compose-dockerfile-kanzennyumon/)
+
 - [米シリコンバレーDevOpsエンジニア監修！超Kubernetes完全入門(2020)【優しい図解説とハンズオン】](https://www.udemy.com/course/kubernetes-docker-container-devops-kanzen-nyumon/)
 
 - [米シリコンバレーエンジニア監修！AWS EKS KubernetesハンズオンBest Practices (2020)](https://www.udemy.com/course/aws-eks-kubernetes-docker-devops-best-practices-2020/)
