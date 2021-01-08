@@ -1,5 +1,14 @@
 デプロイ手順
 
+# 前提
+- AWSのアカウント作成済
+- AWS CLIインストール済、aws configure設定済
+- aws-iam-authenticatorインストール済
+- kubectlインストール済
+- eksctlインストール済
+- eksctlでk8s cluster作成済
+- helmインストール済<br><br>
+
 # NginxのIngress controllerをhelm chartを通して作成する
 Ingress controllerはingressリソースを動かすのに必要な物<br>
 https://kubernetes.io/ja/docs/concepts/services-networking/ingress-controllers/<br><br>
