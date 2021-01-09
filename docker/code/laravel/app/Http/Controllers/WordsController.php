@@ -4,22 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\Word;
 use App\Http\Requests\WordStore;
 use App\Http\DTO\Input\WordStoreInputData;
 use App\Http\DTO\Input\WordUpdateInputData;
 use App\Http\DTO\Input\WordDeleteInputData;
 use App\Http\DTO\Input\WordFavoInputData;
-use App\Http\UseCases\Interactors\WordInteractor;
 
 class WordsController extends Controller
 {
     public function store(Request $request) {
         $currentUserId = $request->userId;
         $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
-        $wordInteractor = new WordInteractor();
-        $wordInteractor->setValues($inputData);
+
+        //usecaseをDI
+        $outputData = app()->make('WordInteractor')->setValues($inputData);
+
         return response()->json(['response' => 'OK']);
     }
 
@@ -27,8 +26,10 @@ class WordsController extends Controller
         $currentUserId = $request->userId;
         $wordId = $request->wordId;
         $inputData = new WordUpdateInputData($currentUserId, $wordId, $request->English, $request->Japanese);
-        $wordInteractor = new WordInteractor();
-        $wordInteractor->updateValues($inputData);
+
+        //usecaseをDI
+        $outputData = app()->make('WordInteractor')->updateValues($inputData);
+
         return response()->json(['response' => 'OK']);
     }
 
@@ -36,8 +37,9 @@ class WordsController extends Controller
         $currentUserId = $request->userId;
         $wordId = $request->wordId;
         $inputData = new WordDeleteInputData($currentUserId, $wordId);
-        $wordInteractor = new WordInteractor();
-        $outputData = $wordInteractor->deleteValues($inputData);
+
+        //usecaseをDI
+        $outputData = app()->make('WordInteractor')->deleteValues($inputData);
 
         //validation result
         if ($outputData->getError()) {
@@ -48,8 +50,9 @@ class WordsController extends Controller
 
     public function test(Request $request) {
         $currentUserId = $request->currentUserId;
-        $wordInteractor = new WordInteractor();
-        $outputData = $wordInteractor->getRandWord($currentUserId);
+
+        //usecaseをDI
+        $outputData = app()->make('WordInteractor')->getRandWord($currentUserId);
 
         //validation result
         if ($outputData->getError()) {
@@ -61,8 +64,10 @@ class WordsController extends Controller
 
     public function index(Request $request) {
         $currentUserId = $request->currentUserId;
-        $wordInteractor = new WordInteractor();
-        $outputData = $wordInteractor->getOtherWord($currentUserId);
+
+        //usecaseをDI
+        $outputData = app()->make('WordInteractor')->getOtherWord($currentUserId);
+
         $words = $outputData->getOtherWords();
         return response()->json(['words' => $words]);
     }
@@ -70,7 +75,8 @@ class WordsController extends Controller
     public function like(Request $request) {
         $currentUserId = $request->currentUserId;
         $inputData = new WordFavoInputData($currentUserId, $request->type, $request->wordId);
-        $wordInteractor = new WordInteractor();
-        $wordInteractor->favoWord($inputData);
+
+        //usecaseをDI
+        $outputData = app()->make('WordInteractor')->favoWord($inputData);
     }
 }
