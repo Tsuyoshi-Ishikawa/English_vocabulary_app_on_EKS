@@ -14,7 +14,7 @@ dockerfileでhostとport設定をしたので、その設定にしてnuxtで受�
 ```
 
 ## 行ったこと
-- stateにuser_idを保存してsessionぽくしてる
+- stateにuser_idを保存してsessionぽくしてる<br>
 ホントはnuxtのライブラリを使ってやるのがいいっぽい
 
 

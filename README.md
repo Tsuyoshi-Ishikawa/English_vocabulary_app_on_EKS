@@ -4,7 +4,7 @@ PROCEDURE.mdに従って作業するとできる。
 
 ![alt text](./eks_structure.png "eks_structure")<br><br>
 
-# 構造
+# ディレクトリ構造
 - docker<br>
 英単語アプリのdocker imageを定義するためのフォルダ。<br>
 フロントをnuxt、バックエンドをlaravelとclean architectureで実装している。
