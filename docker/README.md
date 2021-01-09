@@ -1,7 +1,7 @@
 # 説明
 英単語を登録できて、テストができるアプリ。<br>別のユーザーが登録した英単語をお気に入り登録できたりする。
 
-![alt text](./explain_img/index.png "index")<br>
+![alt text](./explain_img/index.png "index")<br><br>
 ![alt text](./explain_img/home_page2.png "home_page2")<br>
 
 
