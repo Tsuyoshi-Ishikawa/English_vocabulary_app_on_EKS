@@ -51,4 +51,15 @@ class User {
     public function setError($error) {
         $this->error = $error;
     }
+
+    public function register($name, $email, $pass) {
+        $this->setUserName($name);
+        $this->setUserEmail($email);
+        $this->setUserPass($pass);
+    }
+
+    public function login($email, $pass) {
+        $this->setUserEmail($email);
+        $this->setUserPass($pass);
+    }
 }

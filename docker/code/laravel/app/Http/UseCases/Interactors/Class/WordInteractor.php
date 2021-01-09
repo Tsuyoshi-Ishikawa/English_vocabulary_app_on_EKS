@@ -7,7 +7,7 @@ use App\Http\DTO\Input\WordStoreInputCons;
 use App\Http\DTO\Input\WordUpdateInputCons;
 use App\Http\DTO\Input\WordDeleteInputCons;
 use App\Http\DTO\Input\WordFavoInputCons;
-use App\Http\UseCases\EntityDirector\WordDirector;
+use App\Http\UseCases\Entity\Word;
 use App\Http\DTO\Output\WordGetOutputData;
 use App\Http\DTO\Output\WordDeleteOutputData;
 use App\Http\DTO\Output\WordRandOutputData;
@@ -15,8 +15,8 @@ use App\Http\DTO\Output\WordOtherOutputData;
 
 class WordInteractor implements WordUseCase {
     public function getWord(int $id) {
-        $wordDirector = new WordDirector();
-        $word = $wordDirector->setWordId($id);
+        $word = new Word();
+        $word->setWordId($id);
 
         //DataAccessをDI
         app()->make('WordRepository')->find($word);
@@ -25,24 +25,24 @@ class WordInteractor implements WordUseCase {
     }
 
     public function setValues(WordStoreInputCons $inputData) {
-        $wordDirector = new WordDirector();
-        $word = $wordDirector->setValues($inputData);
+        $word = new Word();
+        $word->setValues($inputData->getCurrentUserId(), $inputData->getEnglish(), $inputData->getJapanese());
 
         //DataAccessをDI
         app()->make('WordRepository')->save($word);
     }
 
     public function updateValues(WordUpdateInputCons $inputData) {
-        $wordDirector = new WordDirector();
-        $word = $wordDirector->updateValues($inputData);
+        $word = new Word();
+        $word->updateValues($inputData->getWordId(), $inputData->getCurrentUserId(), $inputData->getEnglish(), $inputData->getJapanese());
 
         //DataAccessをDI
         app()->make('WordRepository')->update($word);
     }
 
     public function deleteValues(WordDeleteInputCons $inputData) {
-        $wordDirector = new WordDirector();
-        $word = $wordDirector->deleteValues($inputData);
+        $word = new Word();
+        $word->deleteValues($inputData->getWordId(), $inputData->getCurrentUserId());
 
         //DataAccessをDI
         app()->make('WordRepository')->delete($word);
@@ -51,8 +51,8 @@ class WordInteractor implements WordUseCase {
     }
 
     public function getRandWord(int $currentUserId) {
-        $wordDirector = new WordDirector();
-        $word = $wordDirector->setCurrentUserId($currentUserId);
+        $word = new Word();
+        $word->setCurrentUserId($currentUserId);
 
         //DataAccessをDI
         app()->make('WordRepository')->getRandWord($word);
@@ -61,8 +61,8 @@ class WordInteractor implements WordUseCase {
     }
 
     public function getOtherWord(int $currentUserId) {
-        $wordDirector = new WordDirector();
-        $word = $wordDirector->setCurrentUserId($currentUserId);
+        $word = new Word();
+        $word->setCurrentUserId($currentUserId);
 
         //DataAccessをDI
         app()->make('WordRepository')->getOtherWord($word);
@@ -71,8 +71,8 @@ class WordInteractor implements WordUseCase {
     }
 
     public function favoWord(WordFavoInputCons $inputData) {
-        $wordDirector = new WordDirector();
-        $word = $wordDirector->favoWord($inputData);
+        $word = new Word();
+        $word->favoWord($inputData->getCurrentUserId(), $inputData->getWordId(), $inputData->getRequestType());
 
         //DataAccessをDI
         app()->make('WordRepository')->favoWord($word);

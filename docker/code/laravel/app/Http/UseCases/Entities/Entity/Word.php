@@ -70,4 +70,28 @@ class Word {
     public function setError($error) {
         $this->error = $error;
     }
+
+    public function setValues($user_id, $English, $Japanese) {
+        $this->setCurrentUserId($user_id);
+        $this->setEnglish($English);
+        $this->setJapanese($Japanese);
+    }
+
+    public function updateValues($word_id, $user_id, $English, $Japanese) {
+        $this->setWordId($word_id);
+        $this->setCurrentUserId($user_id);
+        $this->setEnglish($English);
+        $this->setJapanese($Japanese);
+    }
+
+    public function deleteValues($word_id, $user_id) {
+        $this->setWordId($word_id);
+        $this->setCurrentUserId($user_id);
+    }
+
+    public function favoWord($user_id, $word_id, $request_type) {
+        $this->setCurrentUserId($user_id);
+        $this->setWordId($word_id);
+        $this->setRequestType($request_type);
+    }
 }
