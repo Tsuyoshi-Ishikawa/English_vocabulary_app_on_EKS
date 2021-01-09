@@ -177,6 +177,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\UserInteractorServiceProvider::class,
         App\Providers\WordInteractorServiceProvider::class,
+        App\Providers\EloquentUserRepositoryServiceProvider::class,
+        App\Providers\EloquentWordRepositoryServiceProvider::class,
 
     ],
 
